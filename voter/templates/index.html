@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voter Record Management</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #2ab31b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Voter Record Management</h1>
+        <img src="https://www.stockvault.net/data/2018/10/16/255235/preview16.jpg" alt="Logo" class="logo">
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        <form method="POST">
+            <h2>Display All Records</h2>
+            <button type="submit" name="display_all" class="btn btn-primary">Display All</button>
+        </form>
+        <form method="POST">
+            <h2>Add a Record</h2>
+            <div class="form-group">
+                <label for="id">Voter ID:</label>
+                <input type="text" name="id" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="text" name="age" required class="form-control">
+            </div>
+            <button type="submit" name="add_record" class="btn btn-primary">Add Record</button>
+        </form>
+        <form method="POST">
+            <h2>Search for a Record</h2>
+            <div class="form-group">
+                <label for="search_term">Search Term:</label>
+                <input type="text" name="search_term" required class="form-control">
+            </div>
+            <button type="submit" name="search_record" class="btn btn-primary">Search</button>
+        </form>
+        <form method="POST">
+            <h2>Delete a Record</h2>
+            <div class="form-group">
+                <label for="search_term">Search Term:</label>
+                <input type="text" name="search_term" required class="form-control">
+            </div>
+            <button type="submit" name="delete_record" class="btn btn-primary">Delete Record</button>
+        </form>
+        <form method="POST">
+            <h2>Update a Record</h2>
+            <div class="form-group">
+                <label for="search_term">Search Term:</label>
+                <input type="text" name="search_term" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="new_id">New Voter ID:</label>
+                <input type="text" name="new_id" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="new_name">New Name:</label>
+                <input type="text" name="new_name" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="new_age">New Age:</label>
+                <input type="text" name="new_age" required class="form-control">
+            </div>
+            <button type="submit" name="update_record" class="btn btn-primary">Update Record</button>
+        </form>
+        <form method="POST">
+            <h2>Display B+ Tree</h2>
+            <button type="submit" name="display_tree" class="btn btn-primary">Display Tree</button>
+        </form>
+        {% if records %}
+            <h2>Records:</h2>
+            <ul>
+                {% for record in records %}
+                    <li>ID: {{ record.id }}, Name: {{ record.name }}, Age: {{ record.age }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if tree %}
+            <h2>B+ Tree:</h2>
+            <ul>
+                {% for node in tree %}
+                    <li>Key: {{ node.key }}, Pointer: {{ node.pointer }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
